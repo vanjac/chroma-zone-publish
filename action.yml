@@ -15,8 +15,11 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: 'vanjac/chroma-zone-build'
-        path: '../_build'
+        path: '_build'
         token: ${{ inputs.token }}
+    - name: Relocate build repo
+      shell: bash
+      run: mv _build ../_build
     - name: Configure Git
       shell: bash
       run: |
