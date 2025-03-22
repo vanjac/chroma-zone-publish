@@ -15,7 +15,7 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: 'vanjac/chroma-zone-build'
-        path: _build
+        path: '../_build'
         token: ${{ inputs.token }}
     - name: Configure Git
       shell: bash
@@ -25,16 +25,16 @@ runs:
     - name: Copy build files
       shell: bash
       run: |
-        rsync -a --delete ${{ inputs.src-dir }}/ ./_build/${{ inputs.dst-dir }}
+        rsync -a --delete ${{ inputs.src-dir }}/ ../_build/${{ inputs.dst-dir }}
     - name: Commit to build repo
       continue-on-error: true
       shell: bash
       run: |
-        cd _build
+        cd ../_build
         git add .
         git commit -m "Update ${{ github.event.repository.name }}"
     - name: Push build repo
       shell: bash
       run: |
-        cd _build
+        cd ../_build
         git push
