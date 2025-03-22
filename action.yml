@@ -6,6 +6,8 @@ inputs:
     default: ${{ github.event.repository.name }}
   token:
     default: ${{ github.token }}
+  delete:
+    default: true
 runs:
   using: "composite"
   steps:
@@ -28,7 +30,7 @@ runs:
     - name: Copy build files
       shell: bash
       run: |
-        rsync -a --delete ${{ inputs.src-dir }}/ ../_build/${{ inputs.dst-dir }}
+        rsync -a ${{ inputs.delete && '--delete' || '' }} ${{ inputs.src-dir }}/ ../_build/${{ inputs.dst-dir }}
     - name: Commit to build repo
       continue-on-error: true
       shell: bash
