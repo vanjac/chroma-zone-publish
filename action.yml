@@ -1,0 +1,36 @@
+name: 'Publish to chroma.zone'
+inputs:
+  src-dir:
+    default: 'docs'
+  dst-dir:
+    default: ${{ github.event.repository.name }}
+  token:
+    default: ${{ github.token }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Checkout build repo
+      uses: actions/checkout@v4
+      with:
+        repository: 'vanjac/chroma-zone-build'
+        path: _build
+        token: ${{ inputs.token }}
+    - name: Configure Git
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "<>"
+    - name: Copy build files
+      run: |
+        rsync -a --delete ${{ inputs.src-dir }} ./_build/${{ inputs.dst-dir }}
+    - name: Commit to build repo
+      continue-on-error: true
+      run: |
+        cd _build
+        git add .
+        git commit -m "Update ${{ github.event.repository.name }}"
+    - name: Push build repo
+      run: |
+        cd _build
+        git push
