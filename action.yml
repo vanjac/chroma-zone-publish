@@ -11,6 +11,8 @@ inputs:
     default: true
   filter:
     default:
+  wiki:
+    default:
 runs:
   using: "composite"
   steps:
@@ -25,12 +27,16 @@ runs:
     - name: Relocate build repo
       shell: bash
       run: mv _build ../_build
+    - name: Checkout wiki
+      if: ${{ inputs.wiki }}
+      shell: bash
+      run: echo "Wiki: ${{ inputs.wiki }}"
     - name: Configure Git
       shell: bash
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "<>"
-    - name: Set rsync filter
+    - name: Write rsync filter
       shell: bash
       run: |
         cat <<EOF > .rsync-filter
