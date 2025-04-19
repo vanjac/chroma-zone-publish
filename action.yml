@@ -30,7 +30,8 @@ runs:
     - name: Checkout wiki
       if: ${{ inputs.wiki }}
       shell: bash
-      run: echo "Wiki: ${{ inputs.wiki }}"
+      run: |
+        echo "Wiki: ${{ inputs.wiki }}"
     - name: Configure Git
       shell: bash
       run: |
