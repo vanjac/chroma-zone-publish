@@ -9,6 +9,8 @@ inputs:
   delete:
     type: boolean
     default: true
+  filter:
+    default:
 runs:
   using: "composite"
   steps:
@@ -28,6 +30,12 @@ runs:
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "<>"
+    - name: Set rsync filter
+      shell: bash
+      run: |
+        cat <<EOF > .rsync-filter
+        ${{ inputs.filter }}
+        EOF
     - name: Copy build files
       shell: bash
       run: |
