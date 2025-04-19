@@ -29,9 +29,10 @@ runs:
       run: mv _build ../_build
     - name: Checkout wiki
       if: ${{ inputs.wiki }}
-      shell: bash
-      run: |
-        echo "Wiki: ${{ inputs.wiki }}"
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository }}.wiki
+        path: ${{ inputs.src-dir }}/${{ inputs.wiki }}
     - name: Configure Git
       shell: bash
       run: |
