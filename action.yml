@@ -37,7 +37,7 @@ runs:
         repository: ${{ github.repository }}.wiki
         path: ${{ inputs.src-dir }}/${{ inputs.wiki }}
     - name: Write download page
-      if: ${{ inputs.download }}
+      if: ${{ inputs.download == 'true' }}
       shell: bash
       run: |
         curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .body > download.md
