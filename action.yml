@@ -14,6 +14,7 @@ inputs:
   wiki:
     default:
   download:
+    type: boolean
     default: false
 runs:
   using: "composite"
