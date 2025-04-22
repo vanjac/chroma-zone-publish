@@ -40,7 +40,7 @@ runs:
       if: ${{ inputs.download == 'true' }}
       shell: bash
       run: |
-        ${{ github.action_path }}/gen-download.sh > "${{ inputs.src-dir }}/download.md"
+        ${{ github.action_path }}/gen-download.sh ${{ github.repository }} > "${{ inputs.src-dir }}/download.md"
     - name: Configure Git
       shell: bash
       run: |
