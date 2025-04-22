@@ -40,7 +40,7 @@ runs:
       if: ${{ inputs.download == 'true' }}
       shell: bash
       run: |
-        curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .body > download.md
+        curl -s "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r .body > "${{ inputs.src-dir }}/download.md"
     - name: Configure Git
       shell: bash
       run: |
