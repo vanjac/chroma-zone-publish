@@ -1,4 +1,5 @@
 name: 'Publish to chroma.zone'
+description: ''
 inputs:
   src-dir:
     default: 'docs'
@@ -20,9 +21,9 @@ runs:
   using: "composite"
   steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Checkout build repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: 'vanjac/vanjac.github.io'
         path: '_build'
@@ -32,7 +33,7 @@ runs:
       run: mv _build ../_build
     - name: Checkout wiki
       if: ${{ inputs.wiki }}
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: ${{ github.repository }}.wiki
         path: ${{ inputs.src-dir }}/${{ inputs.wiki }}
